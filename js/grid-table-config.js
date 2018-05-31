@@ -108,9 +108,9 @@ var GridTableConfig = function () {
             var regexp = /(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})(((0[13578]|1[02])(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)(0[1-9]|[12][0-9]|30))|(02(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))0229)/;
             //12位有效时间
             if (regexp.test(cellcontent) && len == 12) {
-                cellcontent = cellcontent.substring(0, 8) + ' ' + cellcontent.substring(8, 10) + ":" + cellcontent.substring(10, 12);
+                cellcontent = cellcontent.substring(0, 4) + '-'+  cellcontent.substring(4, 6) + '-' + cellcontent.substring(6, 8) +' ' + cellcontent.substring(8, 10) + ":" + cellcontent.substring(10, 12);
             } else if (regexp.test(cellcontent) && len == 14) { //14位有效时间
-                cellcontent = cellcontent.substring(0, 8) + ' ' + cellcontent.substring(8, 10) + ":" + cellcontent.substring(10, 12) + ':' + cellcontent.substring(12, 14);
+                cellcontent = cellcontent.substring(0, 4) + '-' + cellcontent.substring(4, 6) + '-' + cellcontent.substring(6, 8) +' ' + cellcontent.substring(8, 10) + ":" + cellcontent.substring(10, 12) + ':' + cellcontent.substring(12, 14);
             }
             // 设置title属性
             attrs = ' title="' + cellcontent + '"';
@@ -171,7 +171,7 @@ var GridTableConfig = function () {
             if (cellvalue.length == 12) {
                 return cellvalue.substring(0, 4) + '-' + cellvalue.substring(4, 6) +'-' +cellvalue.substring(6, 8) + ' ' + cellvalue.substring(8, 10) + ':' + cellvalue.substring(10, 12);
             }else if(cellvalue.length == 14){  // 14位时间
-                return cellvalue.substring(0, 4) + '-' + cellvalue.substring(4, 6) +'-' +cellvalue.substring(6, 8) + ' ' + cellvalue.substring(8, 10) + ':' + cellvalue.substring(12, 14);
+                return cellvalue.substring(0, 4) + '-' + cellvalue.substring(4, 6) +'-' +cellvalue.substring(6, 8) + ' ' + cellvalue.substring(8, 10) +':' + cellvalue.substring(10, 12)+ ':' + cellvalue.substring(12, 14);
             }
         }else {
             return '';

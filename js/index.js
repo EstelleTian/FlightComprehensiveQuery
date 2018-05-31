@@ -197,6 +197,41 @@ var FlightComprehensiveQuery = function () {
         }
 
     };
+    /**
+     * 显示查询条件
+     * */
+    var showQueryDetail = function (data) {
+        var airport = airportElement.val(); // 机场名称
+        var start = startTimeElement.val(); //开始时间
+        var end = endTimeElement.val(); // 结束时间
+        var fpl = $(".form-opt .fpl:checked").val(); // fpl报
+        var fplStr = '';
+        if(fpl == 'true'){
+            fplStr = '有'
+        }else if(fpl == 'false') {
+            fplStr = '无'
+        }
+        // 数据生成时间
+        var time = '';
+        if($.isValidObject(data) && $.isValidVariable(data.generateTime)){
+            var t = data.generateTime;
+            time = t.substring(0, 4) + '-' + t.substring(4, 6) +'-' +t.substring(6, 8) + ' ' + t.substring(8, 10) + ':' + t.substring(10, 12);
+            
+        }
+        $('.query-detail .airport').text(airport);
+        $('.query-detail .start-time').text(start);
+        $('.query-detail .end-time').text(end);
+        $('.query-detail .fpl').text(fplStr);
+        $('.query-detail .generate-time').text(time);
+        $('.query-detail').removeClass('hide');
+    }
+    /**
+     * 隐藏查询条件
+     * */
+    var hideQueryDetail = function () {
+        $('.query-detail').addClass('hide');
+    }
+
 
     /**
      * 校验表单数据是否有效
@@ -281,16 +316,22 @@ var FlightComprehensiveQuery = function () {
     * 查询数据
     * */
     var queryDatas = function () {
+        queryDataFlag = false;
         var airport = airportElement.val(); // 机场名称
         var condition = 1; // 1包含
         var startTime = convertDateTime(startTimeElement.val()); // 开始时间
         var endTime = convertDateTime( endTimeElement.val()); // 结束时间
         var hasFPL = $(".form-opt .fpl:checked").val(); // 是否有FPL报
+
         $.ajax({
             type : "GET",
             data : {airport : airport, "condition" : condition, "start" : startTime, "end" : endTime, "hasFPL" : hasFPL},
             url : url,
             success : function(data) {
+                queryDataFlag = true;
+                // 显示查询条件
+                showQueryDetail(data)
+
                 // 关闭loading动画
                 loading.stop();
                 if($.isValidObject(data) && data.status == 200) {
@@ -302,6 +343,7 @@ var FlightComprehensiveQuery = function () {
                 }
             },
             error : function(error) {
+                queryDataFlag = true;
                 // 关闭loading动画
                 loading.stop();
                 showErrorMessage(errElement,error)
@@ -327,6 +369,11 @@ var FlightComprehensiveQuery = function () {
      * 处理查询
      * */
     var handleSearch = function () {
+        if(!queryDataFlag){
+            return
+        }
+        // 隐藏查询条件
+        hideQueryDetail();
         // 清除错误提示信息
         clearErrorMessage(errElement);
         // 清除表格
