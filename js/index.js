@@ -201,7 +201,7 @@ var FlightComprehensiveQuery = function () {
      * 显示查询条件
      * */
     var showQueryDetail = function (data) {
-        var airport = airportElement.val(); // 机场名称
+        var airport = airportElement.val().toUpperCase(); // 机场名称
         var start = startTimeElement.val(); //开始时间
         var end = endTimeElement.val(); // 结束时间
         var fpl = $(".form-opt .fpl:checked").val(); // fpl报
@@ -317,7 +317,7 @@ var FlightComprehensiveQuery = function () {
     * */
     var queryDatas = function () {
         queryDataFlag = false;
-        var airport = airportElement.val(); // 机场名称
+        var airport = airportElement.val().toUpperCase(); // 机场名称
         var condition = 1; // 1包含
         var startTime = convertDateTime(startTimeElement.val()); // 开始时间
         var endTime = convertDateTime( endTimeElement.val()); // 结束时间
