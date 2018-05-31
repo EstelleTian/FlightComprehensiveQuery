@@ -2,175 +2,58 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>航班查询</title>
-<script type="text/javascript" src="plugins/jquery/jquery.min.js"></script>
-<script>
-	function search() {
-		var airport = $("#airport").val();
-		var condition =  $("#condition option:selected").val();
-		var startTime = $("#startTime").val();
-		var endTime = $("#endTime").val();
-		var hasFPL = $("input[name='hasFpl']:checked").val();
-		
-		$("#errorMessage").html("");
-		
-		if(airport == null || airport == "") {
-			$("#errorMessage").html("请输入机场");
-			return;
-		}
-		if(condition == null || condition == "") {
-			$("#errorMessage").html("请选择查询条件");
-			return;
-		}
-		if(startTime == null || startTime == "") {
-			$("#errorMessage").html("请输入开始时间");
-			return;
-		}
-		if(endTime == null || endTime == "") {
-			$("#errorMessage").html("请输入结束时间");
-			return;
-		}
-		if(hasFPL == null || hasFPL == "") {
-			$("#errorMessage").html("请选择是否包含FPL");
-			return;
-		}
-		
-		$("#searchBtn").val("查询中");
-		$("#searchBtn").attr("disable", true);
-		
-		$.ajax({
-			type : "GET",
-			data : {airport : airport, "condition" : condition, "start" : startTime, "end" : endTime, "hasFPL" : hasFPL},
-			url : "http://192.168.243.187:38180/Flights/retrieve",
-			success : function(data) {
-				$("#searchBtn").val("查询");
-				$("#searchBtn").attr("disable", false);
-				$("#errorMessage").html("");
-				
-				if(data.status == 200) {
-					// 循环数据进行展示
-					var flights = data.result;
-					
-					// 移除之前表格数据
-					$("#flights tr:not(:first):not(:last)").empty("");
-					
-					if(flights != null && Object.getOwnPropertyNames(flights).length > 0) {
-						var total = Object.getOwnPropertyNames(flights).length;
-						$("#total").html(total);
-						
-						var flightTitleTr = $("#flight_data_title");
-						
-						for(var key in flights){
-							var id = key;
-							var flight = flights[key];
-							var flightId = flight.flightId;
-							var depap = flight.depap != null ? flight.depap : "";
-							var arrap = flight.arrap != null ? flight.arrap : "";
-							var eobt = flight.eobt != null ? flight.eobt : "";
-							var atot = flight.atd != null ? flight.atd : "";
-							var execudate = flight.executedate;
-							
-							var flightTr = $('<tr id="flight_' + id + '"></tr>');
-							var flightIdTd = $('<td align="center"><a href="javascript:void(0)" onclick="toDetail(' + id + ')">' + flightId + '</a></td>').appendTo(flightTr);
-							var depapTd = $('<td align="center">' + depap + '</td>').appendTo(flightTr);
-							var arrapTd = $('<td align="center">' + arrap + '</td>').appendTo(flightTr);
-							var eobtTd = $('<td align="center">' + formate12(eobt) + '</td>').appendTo(flightTr);
-							var atotTd = $('<td align="center">' + formate12(atot) + '</td>').appendTo(flightTr);
-							var execudateTd = $('<td align="center">' + formate8(execudate) + '</td>').appendTo(flightTr);
-							
-							// 将数据TR加入到表格中
-							flightTitleTr.after(flightTr);
-						}
-					} else {
-						$("#total").html(0);
-					}
-				} else {
-					$("#errorMessage").html(data.error.message);
-				}
-			},
-			error : function(error) {
-				$("#searchBtn").val("查询");
-				$("#searchBtn").attr("disable", false);
-				$("#errorMessage").html(error);
-			}
-		})
-	}
+<title>航班综合查询</title>
+	<link rel="stylesheet" type="text/css" href="plugins/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="plugins/jqgrid/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="plugins/jqgrid/css/ui.jqgrid-bootstrap-custom.css">
+    <link rel="stylesheet" href="plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="plugins/qtip2/css/jquery.qtip.min.css">
+    <link rel="stylesheet" href="plugins/qtip2/css/jquery.qtip-custom.css">
+    <link rel="stylesheet" href="plugins/ladda/css/ladda.css">
 
-	function toDetail(flightId) {
-		var url = "http://192.168.217.233:8080/areacrs/open_flight_detail_dialog.action?id=" + flightId;
-		window.open(url);
-	}
-	
-	function formate12 (time) {
-		if(time == null || time == "") {
-			return "";
-		}
-	    var year = time.substring(0, 4);
-	    var mon = time.substring(4, 6);
-	    var date = time.substring(6, 8);
-	    var hour = time.substring(8, 10);
-	    var min = time.substring(10, 12);
-	    var str = year + '-' + mon + '-' + date + ' ' + hour + ":" + min;
-	    return str;
-	}
-	
-	function formate8 (time) {
-		if(time == null || time == "") {
-			return "";
-		}
-	    var year = time.substring(0, 4);
-	    var mon = time.substring(4, 6);
-	    var date = time.substring(6, 8);
-	    var str = year + '-' + mon + '-' + date;
-	    return str;
-	}
-	
-</script>
-<style>
-#flights td {
-	border: 1px #D4D4D4 solid;
-	height:10px;
-	line-height: 10px;
-}
-</style>
+    <link rel="stylesheet" type="text/css" href="css/common-component.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+
 </head>
 <body>
-	<div style="margin-top: 10px;">
-		<table style="widht:100%;margin-top: 10px;" align="center" cellspacing="0" cellpadding="10">
-			<thead>
-				<tr>
-					<td>
-						<select id="condition">
-							<option selected="selected" value="1">包含</option>
-							<option value="2">不包含</option>
-						</select> 
-						<input type="text" value="" placeholder="请输入机场，如ZU,ZW" id="airport" style="margin-top: 10px;" />
-						<input type="text" value="201805300000" placeholder="开始时间(yyyyMMddHHmm)" id="startTime" />
-						<input type="text" value="201805302359" placeholder="结束时间(yyyyMMddHHmm)" id="endTime" />
-						<input type="radio" name="hasFpl" value="true" checked="true"/>有FPL
-						<input type="radio" name="hasFpl" value="false"/>无FPL
-						<input type="button" value="查询" onclick="search();" id="searchBtn" /> 
-						<span style="color:red" id="errorMessage"></span></td>
-				</tr>
-			</thead>
-		</table>
-		<table style="widht:100%;margin-top: 10px;" id="flights"
-			align="center" cellspacing="0" cellpadding="10">
-			<thead>
-				<tr id="flight_data_title">
-					<td width="200" align="center" style="background-color: #DEDEDE;line-height: 20px;">FLIGHTID</td>
-					<td width="200" align="center" style="background-color: #DEDEDE;line-height: 20px;">DEPAP</td>
-					<td width="200" align="center" style="background-color: #DEDEDE;line-height: 20px;">ARRAP</td>
-					<td width="300" align="center" style="background-color: #DEDEDE;line-height: 20px;">EOBT</td>
-					<td width="300" align="center" style="background-color: #DEDEDE;line-height: 20px;">ATOT</td>
-					<td width="200" align="center" style="background-color: #DEDEDE;line-height: 20px;">EXECUDATE</td>
-				</tr>
-				<tr id="flight_data_length">
-					<td align="right" colspan="6">共计<span id="total">0</span>条记录
-					</td>
-				</tr>
-			</thead>
-		</table>
+	<div class="wrap">
+		<div class="header">
+            <h2 class="title">航班综合查询</h2>
+            <div class="form-opt">
+                <input type="text" class="form-control airport" name="airport" placeholder="请输入机场，如ZU,ZW">
+                <input type="text" class="form-control start-time date-input" value="201805300000" placeholder="开始时间(yyyyMMddHHmm)" >
+                <input type="text"  class="form-control end-time date-input" value="201805300200" placeholder="结束时间(yyyyMMddHHmm)" />
+                <label><input type="radio"  class="fpl" name="has-fpl" value="true" checked="true"/>有FPL</label>
+                <label><input type="radio"  class="fpl" name="has-fpl" value="false"/>无FPL</label>
+                <button  class="search atfm-btn atfm-btn-blue ladda-button " value="查询" data-style="zoom-out">
+                    <span class="ladda-label">查询</span>
+                </button>
+            </div>
+        </div>
+		<div class="content">
+            <div id="table-canvas">
+                <table id="flight-table"></table>
+                <div id="flight-table-pager"></div>
+            </div>
+            <h2 class="err-msg"></h2>
+        </div>
 	</div>
+
+    <script type="text/javascript" src="plugins/jquery/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/jquery/jquery-custom-util.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/jqgrid/js/jquery.jqGrid.5.2.0.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/jqgrid/js/jquery.jqGrid.util.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/jqgrid/i18n/grid.locale-cn.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/qtip2/js/jquery.qtip.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="plugins/ladda/js/spin.min.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="plugins/ladda/js/ladda.js" type="text/javascript" ></script>
+    <!-- 表格通用方法-->
+    <script type="text/javascript" src="js/grid-table.js"></script>
+    <!--表格配置-->
+    <script type="text/javascript" src="js/grid-table-config.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

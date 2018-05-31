@@ -1,0 +1,629 @@
+@charset "utf-8";
+/** 全局页面组件结构样式 */
+
+/**
+ * 各模块通用样式
+ */
+.component {
+	background-color: #FFFFFF;
+	border: solid 1px #999;
+	border-top: none;
+}
+
+/**
+ * 各模块通用标题样式
+ */
+
+.component_title {
+	position: relative;
+	left: 0;
+	height: 20px;
+	line-height: 20px;
+	display: inline;
+}
+
+/**
+ * 各模块通用标题背景图片样式
+ */
+.component_title_image {
+	position: absolute;
+	top: -8px; /* 使较大的背景图片能够偏移出所在DIV容器 */
+	left: -8px;
+	right: -8px;
+	height: 41px; /* 背景图片的高度 */
+	width: 200px;
+}
+
+/**
+ * 各模块通用数据显示区域
+ */
+.component_canvas {
+	position: absolute; /* 使用绝对定位 + 动态高度 并依赖所在容器的绝对定位 */
+	top: 35px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 2px;
+}
+
+/**
+ * 航段飞行时间显示区域
+ */
+.passtime_stat_component_canvas {
+	position: absolute; /* 使用绝对定位 + 动态高度 并依赖所在容器的绝对定位 */
+	top: 10px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 2px;
+}
+
+/**
+ * 各模块通用操作区域
+ */
+.component_operator {
+	position: absolute;
+	top: 35px;
+	left: 0;
+	right: 0;
+	min-height: 30px;
+	height: auto;
+	display: none; /* 默认隐藏 */
+	line-height: 30px; /* 文本水平垂直居中 */
+	text-align: left;
+	padding: 0 5px; /* 增加左右间距 */
+	background-color: #CCC;
+	border-bottom: solid 1px #888;
+}
+
+/**
+ * 各模块通用操作区域开启/关闭模块
+ */
+.component_operator_item {
+	float: right; /* 置于右侧 */
+	color: #FFF;
+	margin-right: 10px;
+}
+.component_operator_item:hover {
+	color: #6CAAD4;
+}
+.component_operator_item_nohover {
+	float: right; /* 置于右侧 */
+	color: #666;
+	margin-right: 10px;
+}
+/**
+ * 组件全屏时样式
+ * 为组件追加样式
+ * PS:一定要写在组件基础样式的后面
+ */
+.component_fullscreen {
+	top: 10px !important;
+	left: 10px !important;
+	bottom: 10px !important;
+	right: 10px !important;
+	width: auto !important;
+	height: auto !important;
+	z-index: 900;
+}
+
+/**
+ * 各模块通用操作区域
+ */
+.component-operator {
+	min-height: 30px;
+	height: auto;
+	font-size: 12px;
+	display: none;
+	line-height: 30px;
+	text-align: left;
+	padding: 0 5px;
+	background-color: #fff;
+	border-bottom: solid 1px #888;
+}
+.component-operator input{
+	line-height: normal !important;
+}
+.component-operator label{
+	margin-right: 3px;
+	vertical-align: middle;
+}
+
+.flowcontrol_filter_text{
+	width: 45px;
+}
+
+/**
+ * 各模块通用操作区域开启/关闭模块
+ */
+.component-operator-item {
+	float: right; /* 置于右侧 */
+	color: #fff;
+	margin-right: 10px;
+}
+.component-operator-item:hover {
+	text-decoration: none;
+}
+
+.portlet > .portlet-title > .tools > a {
+	cursor: pointer;
+	text-decoration: none;
+	color: #000;
+}
+
+/*工具栏*/
+.component-toolbar {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	right: 0;
+	min-height: 30px;
+	background-color: #eeeeee;
+	display: none;
+	z-index: 1;
+}
+
+/*画板*/
+.component-canvas {
+	position: relative;
+	padding: 0 2px;
+	z-index: 0;
+	overflow: auto;
+	margin-top: 2px;
+	height: 99.5%;
+}
+#timeline_canvas,#statistics_canvas,#runway_canvas{
+	height: 95.5%;
+}
+#notice_info_canvas {
+	height: 95%;
+}
+#flowcontrollist_canvas{
+	bottom: 0;
+}
+/*面板标题的a标签选中样式*/
+.panel-heading>a:hover {
+	color: #23527c;
+	text-decoration: none;
+}
+/**
+ * 组件全屏时样式
+ * 为组件追加样式
+ * PS:一定要写在组件基础样式的后面
+ */
+.component-fullscreen {
+	top: 10px !important;
+	left: 10px !important;
+	bottom: 10px !important;
+	right: 10px !important;
+	width: auto !important;
+	height: auto !important;
+	z-index: 900;
+}
+.popover .popover-highlight-row{
+	background-color: #f0ad4e;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	padding: 2px;
+}
+/* 主表位置  */
+.flight-grid-table-canvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/*height: 90%;*/
+}
+/*导航栏四个表格样式*/
+.four_table_div{
+	position: absolute;
+	/*new版面样式*/
+	/*top: 106px;*/
+	/*old版面样式*/
+	top: 100px;
+	right: 15px;
+	width: 500px;
+	height: 400px;
+	box-shadow: 0 0 10px 0px #222;
+	border-radius: 5px;
+	display: none;
+	color: #333;
+}
+/*右导航四个表格提示信息颜色*/
+.container-nav-right .badge.information_count {
+	background-color: #fff;
+	color: #333;
+}
+.badge{
+	background-color: #ec971f;
+	color: #fff;
+	margin-top: -1px;
+	z-index: 2;
+}
+.badge.navigator_data_range_setting{
+	margin-left: 5px;
+}
+/*右导航四个表格布局*/
+.table_canvas_layout{
+	position: absolute;
+	top: 41px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+}
+/*右侧模块页面布局*/
+.right_modal_pos {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+/**航班查询**/
+.form-panel{
+	padding: 5px 10px;
+}
+.form-panel .range{
+	height: 32px;
+	line-height: 32px;
+}
+.form-panel .range select{
+	height: 32px;
+	line-height: 30px;
+	padding: 0 10px;
+	border-radius: 4px;
+}
+.form-panel .filght-name{
+	height: 32px;
+	line-height: 32px;
+	padding: 0 10px;
+}
+.form-panel .filght-name input{
+	height: 32px;
+	line-height: 32px;
+	padding: 0 10px;
+	text-transform:uppercase;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+#flight_search_canvas{
+	top:83px;
+}
+
+
+/*按钮配色*/
+.atfm-btn {
+	border-width: 0;
+	padding: 6px 14px;
+	font-size: 15px;
+	outline: none !important;
+	background-image: none !important;
+	filter: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	text-shadow: none;
+	min-width: 70px;
+}
+.atfm-btn.atfm-btn-sm{
+	min-width: 55px;
+	font-size: 14px;
+	padding: 4px 12px;
+}
+.atfm-btn-default {
+	color: #333333;
+	background-color: #E5E5E5;
+}
+.atfm-btn-default:hover, .atfm-btn-default:focus, .atfm-btn-default:active {
+	color: #333333;
+	background-color: lightgray;
+}
+.atfm-btn-red {
+	color: #FFFFFF;
+	background-color: #E26A6A;
+}
+.atfm-btn-red:hover, .atfm-btn-red:focus, .atfm-btn-red:active {
+	color: #FFFFFF;
+	background-color: #dc4c4c;
+}
+.atfm-btn-blue {
+	color: #FFFFFF;
+	background-color: #578ebe;
+
+}
+.atfm-btn-blue:hover, .atfm-btn-blue:focus, .atfm-btn-blue:active {
+	color: #FFFFFF;
+	background-color: #437cae;
+}
+.atfm-btn-green {
+	color: #FFFFFF;
+	background-color: #26a69a;
+}
+.atfm-btn-green:hover, .atfm-btn-green:focus, .atfm-btn-green:active {
+	color: #FFFFFF;
+	background-color: #1f897f;
+}
+.atfm-btn-yellow {
+	color: #FFFFFF;
+	background-color: #f3c200;
+}
+.atfm-btn-yellow:hover, .atfm-btn-yellow:focus, .atfm-btn-yellow:active {
+	color: #FFFFFF;
+	background-color: #cfa500;
+}
+.modal-close-btn{
+	float: right;
+	top: -15px;
+	color: #aaa;
+}
+form>.form-group{
+	margin-bottom: 0;
+}
+/*表格协调记录弹框按钮外上边距*/
+.collaborate-content-level{
+	margin-top:5px;
+}
+/*--------------------------content-loading-------------------------*/
+.cont-loading{
+	position: fixed;
+	left: 50%;
+	top: 42%;
+	height: 82px;
+	width: 360px;
+	border: 1px solid #d2d5d7;
+	background-color: #f1f4f6;
+	border-radius:2px;
+	font-size: 14px;
+	color: #616161;
+	line-height: 80px;
+	text-align: center;
+	vertical-align: middle;
+	margin-left:-180px;
+	z-index: 999;
+}
+.cont-loading img{
+	height: 25px;
+	width:25px;
+	margin-right: 10px;
+}
+/*--------------------------表单验证专用样式-------------------------*/
+/* 表格右键弹框受控过点时间样式 */
+.FFixT_form .ffixt_left{
+	padding:0 0 2px 2px;
+}
+.FFixT_form .ffixt_center{
+	position : relative;
+	padding : 0;
+	width : 17px;
+	text-align : center;
+}
+.FFixT_form .ffixt_more{
+	position:absolute;
+	top:50%;
+	margin-top:160px;
+
+	height:11px;
+	border:none;
+	outline:none;
+}
+.FFixT_form .ffixt_right{
+	padding-left:21px;
+}
+.FFixT_form .input-group-addon.border_style{
+	border-left:solid 1px #ccc;
+	border-radius:4px 0 0 4px;
+}
+.left_icon{
+	background: url("../plugins/dhx/skins/terrace/imgs/dhxcalendar_terrace/dhxcalendar_arrow_left.gif");
+	background-repeat:no-repeat;
+}
+.right_icon{
+	background: url("../plugins/dhx/skins/terrace/imgs/dhxcalendar_terrace/dhxcalendar_arrow_right.gif");
+	background-repeat:no-repeat;
+}
+.FFixT_form .ffixt_right .title_pos{
+	padding: 0 0 0 4px;
+}
+.FFixT_form .ffixt_right .date_pos{
+	padding: 0 3px 0 0;
+}
+.FFixT_form .ffixt_right .time_pos{
+	padding: 0 0 0 0;
+}
+.FFixT_form .ffixt_right .time_pos input{
+	border-radius: 0;
+}
+.FFixT_form .ffixt_right .feedback_pos{
+	padding: 1px 8px 3px 10px;
+}
+.FFixT_form .radio_groups label{
+	font-size: 14px;
+	padding-right: 5px;
+}
+.FFixT_form .radio_groups label input{
+	position: relative;
+	top: 1px;
+}
+/*红色必填符号*/
+.required{
+	color: #f00;
+	padding-right: 1px;
+}
+/*label提示框位置*/
+.atfm-form-label{
+	text-align: right;
+	height: 34px;
+	line-height: 34px;
+	font-weight: normal;
+}
+/*协调记录的日期框只读状态去掉灰色背景色*/
+input.date_input {
+	background-color: #fff!important;
+	cursor: pointer;
+}
+/*表单验证错误提示样式*/
+.pool-valid_errors{
+	text-align: right;
+	margin-right: 44px;
+}
+/*流控弹框基础字体大小*/
+.flowcontrol-container{
+	font-size: 16px!important;
+}
+/*#toast-container{*/
+	/*position: absolute;*/
+	/*bottom: 0;*/
+	/*right: 0;*/
+	/*z-index: 9999;*/
+	/*width: 300px;*/
+	/*overflow-y: auto;*/
+/*}*/
+/*#toast-container:hover{*/
+	/*cursor: pointer;*/
+/*}*/
+/**消息容器**/
+#toast-container {
+	position: relative;
+	right: 0;
+	bottom: 0;
+	margin: 0 5px;
+	height: 292px;
+	overflow-y: auto;
+	pointer-events: auto;
+}
+#toast-container > div{
+	width: 100%;
+	padding: 6px 15px 6px 50px;
+}
+#toastr_canvas{
+	position: absolute;
+	bottom: 6px;
+	right: 30px;
+	z-index: 9999;
+	width: 486px;
+	background-color: #fff;
+	height: 330px;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 0 4px #999;
+	display: none;
+}
+.toastr_canvas_header:hover{
+	cursor: move;
+}
+.toastr_canvas_header{
+	background-color: #e6e6e6;
+	box-shadow: 0 0 5px #999;
+	margin-bottom: 5px;
+}
+.toastr_canvas_header>.title{
+	color: #4DB3A2;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 6px 12px;
+	display: inline-block;
+}
+.toastr_canvas_header>.close{
+	float: right;
+	font-size: 16px;
+	padding: 8px;
+}
+.toastr_canvas_header>.resize{
+	float: right;
+	font-size: 16px;
+	padding: 8px;
+	cursor: pointer;
+	color: #000;
+	opacity: .3;
+	z-index: 10001;
+}
+.toastr_canvas_header>.resize:hover{
+	opacity: .6;
+}
+.toastr_canvas_header .navigator_flight_list_systemevent{
+	color: #827e7e;
+	float: right;
+	line-height: 34px;
+	padding-right: 10px;
+}
+.toastr_canvas_header .navigator_flight_list_systemevent:hover{
+	cursor: pointer;
+	color: #000;
+}
+.resize_container{
+	position: absolute;
+	width: 230px;
+	right: 0;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: 6px;
+	box-shadow: 0 5px 10px rgba(0,0,0,.2);
+	display: none;
+	z-index: 10000;
+}
+.popover-content{
+	opacity: 1;
+	background-color: #fff;
+}
+.triang_top{
+	position: absolute;
+	top: -23px;
+	left: 166px;
+	color: #f7f7f7;
+	font-size:30px;
+	z-index: 2;
+
+}
+.resize_container>.popover-title{
+	width: 228px;
+	height: 35px;
+	line-height: 18px;
+	font-size: 14px;
+	overflow: hidden;
+}
+.resize_container>.popover-title>.resize_close{
+	float: right;
+	font-size: 16px;
+	cursor: pointer;
+	opacity: .5;
+}
+.resize_container>.popover-title>.resize_close:hover{
+	opacity:1;
+}
+.resize_content{
+	overflow: hidden;
+}
+.width_content>.width_content_input{
+	width: 80px;
+}
+.height_content>.height_content_input{
+	width: 80px;
+}
+.resize_content>.width_content{
+	display: block;
+	color: #0f0f0f;
+}
+.resize_content>.height_content{
+	display: block;
+	color: #0f0f0f;
+	margin-top: -10px;
+}
+
+.resize_content>.resize_window_btn{
+	float: right;
+	margin-top: -70px;
+}
+.alarm_title{
+	color:red;
+	font-size: 14px;
+	margin: -10px 0 0 0;
+}

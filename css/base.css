@@ -1,0 +1,42 @@
+html,body {
+    height : 100%;
+    width : 100%;
+
+}
+.wrap {
+    display : flex;
+    flex : 1;
+    height : 100%;
+    width : 100%;
+    flex-direction: column;
+
+
+}
+.wrap .header {
+    text-align: center;
+}
+.form-opt .form-control {
+    width: 300px;
+    display: inline-block;
+}
+.form-opt .airport {
+    text-transform: uppercase;
+}
+.wrap .content {
+    display : flex;
+    flex : 1;
+    position: relative;
+}
+.wrap .content #table-canvas {
+    width: 100%;
+    margin: 10px;
+}
+.wrap .content #table-canvas .ui-jqgrid {
+    border: 1px solid #DDDDDD;
+}
+.wrap .content .err-msg {
+    text-align: center;
+    color: #777;
+    position: absolute;
+    width: 100%;
+}
