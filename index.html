@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>航班综合查询</title>
+<title>航班方向信息检测查询</title>
 	<link rel="stylesheet" type="text/css" href="plugins/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="plugins/jqgrid/css/ui.jqgrid-bootstrap.css">
     <link rel="stylesheet" href="plugins/jqgrid/css/ui.jqgrid-bootstrap-custom.css">
@@ -18,11 +18,11 @@
 <body>
 	<div class="wrap">
 		<div class="header">
-            <h2 class="title">航班综合查询</h2>
+            <h2 class="title">航班方向信息检测查询</h2>
             <div class="form-opt">
-                <input type="text" class="form-control airport" name="airport" placeholder="请输入机场，如ZU,ZW">
-                <input type="text" class="form-control start-time date-input" value="201805300000" placeholder="开始时间(yyyyMMddHHmm)" >
-                <input type="text"  class="form-control end-time date-input" value="201805300200" placeholder="结束时间(yyyyMMddHHmm)" />
+                <input type="text" class="form-control airport" placeholder="请输入机场，如ZU,ZW">
+                <input type="text" class="form-control start-time date-input" value="201805300000" placeholder="开始时间" >
+                <input type="text"  class="form-control end-time date-input" value="201805300200" placeholder="结束时间" />
                 <label><input type="radio"  class="fpl" name="has-fpl" value="true" checked="true"/>有FPL</label>
                 <label><input type="radio"  class="fpl" name="has-fpl" value="false"/>无FPL</label>
                 <button  class="search atfm-btn atfm-btn-blue ladda-button " value="查询" data-style="zoom-out">

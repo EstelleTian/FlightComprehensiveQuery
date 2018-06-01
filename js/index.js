@@ -79,7 +79,8 @@ var FlightComprehensiveQuery = function () {
                     // var colData = table.gridTableObject.jqGrid('getGridParam')['data'];
                     // 航班号列单元格
                     if (colName == 'flightId') {
-                        // console.log(rowid);
+                        // rowid 既为航班id
+                        // 查看航班详情
                         var url = "http://192.168.217.233:8080/areacrs/open_flight_detail_dialog.action?id=" + rowid;
                         window.open(url);
                     }
@@ -152,7 +153,7 @@ var FlightComprehensiveQuery = function () {
             // 隐藏配置
             hide: {
                 target:targetObj, // 指定对象
-                event: 'unfocus click', // 失去焦点时隐藏
+                event: 'unfocus click keyup', // 失去焦点时隐藏
                 effect: function () {
                     $(this).fadeOut(); // 隐藏动画
                 }
@@ -231,6 +232,18 @@ var FlightComprehensiveQuery = function () {
     var hideQueryDetail = function () {
         $('.query-detail').addClass('hide');
     }
+    /**
+     *禁用表单
+     * */
+    var disabledForm = function () {
+        $('.form-opt input').prop('disabled',true);
+    }
+    /**
+     * 启用表单
+     * */
+    var enabledForm = function () {
+        $('.form-opt input').prop('disabled',false);
+    }
 
 
     /**
@@ -252,7 +265,8 @@ var FlightComprehensiveQuery = function () {
      * */
     var validAirport = function () {
         var airportVal = airportElement.val().toUpperCase();
-        var regexp = /^[A-Z\d]+$/;
+        var regexp = /(^[a-zA-Z]{4}|^[a-zA-Z]{2}|^[a-zA-Z]{3}|^[a-zA-Z]{1})([,]([a-zA-Z]{4}|[a-zA-Z]{2}|[a-zA-Z]{3}|[a-zA-Z]{1}))*$/;
+
         var valid = regexp.test(airportVal);
         if(valid){
             return true;
@@ -316,6 +330,7 @@ var FlightComprehensiveQuery = function () {
     * 查询数据
     * */
     var queryDatas = function () {
+        disabledForm();
         queryDataFlag = false;
         var airport = airportElement.val().toUpperCase(); // 机场名称
         var condition = 1; // 1包含
@@ -328,6 +343,7 @@ var FlightComprehensiveQuery = function () {
             data : {airport : airport, "condition" : condition, "start" : startTime, "end" : endTime, "hasFPL" : hasFPL},
             url : url,
             success : function(data) {
+                enabledForm();
                 queryDataFlag = true;
                 // 显示查询条件
                 showQueryDetail(data)
@@ -342,11 +358,12 @@ var FlightComprehensiveQuery = function () {
                    showErrorMessage(errElement,'数据为空')
                 }
             },
-            error : function(error) {
+            error : function(xhr, status, error) {
+                enabledForm();
                 queryDataFlag = true;
                 // 关闭loading动画
                 loading.stop();
-                showErrorMessage(errElement,error)
+                showErrorMessage(errElement,status)
             }
         })
     };
@@ -422,7 +439,7 @@ var FlightComprehensiveQuery = function () {
         initDefaultDateTime();
         // 日期控件初始化
         initDateComponents();
-        //
+        // 初始化按钮动画
         initLoading()
 
     };
@@ -430,7 +447,6 @@ var FlightComprehensiveQuery = function () {
     var initEvent = function () {
         // 初始化查询事件
         initSearchEvent();
-
     };
 
 

@@ -22,35 +22,35 @@ var GridTableConfig = function () {
                 name: 'flightId',
                 index: 'flightId'
             },
-            // depap
+            // depap 起飞机场
             {
                 name: 'depap',
                 index: 'depap',
             },
-            // arrap
+            // arrap 降落机场
             {
                 name: 'arrap',
                 index: 'arrap',
             },
-            // sobt
+            // sobt 计划起飞时间
             {
                 name: 'sobt',
                 index: 'sobt',
                 formatter : formatterDateTime
             },
-            // eobt
+            // eobt 预计起飞时间
             {
                 name: 'eobt',
                 index: 'eobt',
                 formatter : formatterDateTime
             },
-            // ATOT
+            // ATOT  实际起飞时间
             {
                 name: 'atd',
                 index: 'atd',
                 formatter : formatterDateTime
             },
-            // executedate
+            // executedate 执行日期
             {
                 name: 'executedate',
                 index: 'executedate',
